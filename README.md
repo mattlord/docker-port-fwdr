@@ -1,5 +1,5 @@
 # docker-port-fwdr
-A simple container image for port forwarding.
+Creates a simple container image for port forwarding.
 
 This can, for example, serve as a sort of jump host when accessing services through a k8s cluster from your local machine. Here's an example for MySQL admins (at this point you will have already connected and auth'd with your k8s cluster):
 ```
