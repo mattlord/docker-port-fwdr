@@ -1,4 +1,4 @@
-FROM debian:9-slim
+FROM debian:10-slim
 
 RUN apt-get update \
     && apt-get -y install socat ca-certificates \
