@@ -1,8 +1,8 @@
-FROM debian:9-slim
+FROM debian:10-slim
 
 RUN apt-get update \
     && apt-get -y install socat \
-    && apt-get clean
+    && rm -rf /var/lib/apt/lists/*
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
