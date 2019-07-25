@@ -1,8 +1,8 @@
 FROM debian:10-slim
 
 RUN apt-get update \
-    && apt-get -y install socat \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get -y install socat ca-certificates \
+    && apt-get clean
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
