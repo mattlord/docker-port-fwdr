@@ -14,12 +14,19 @@ Then you can use your favorite MySQL client, e.g. [MySQL Workbench](https://www.
 
 If you need an SSL tunnel between the pod and the endpoint -- for example when using the redis-cli to connect to a TLS enabled Cloud Redis service such as ElastiCache -- then you can add an optional third parameter of "stunnel":
 ```
-# run the port forwarder pod in your k8s cluster
-$ kubectl run -it --rm -n <namespace> --image=mattalord/port-fwdr --restart=Never port-fwdr 3306 <cloud endpoint>:3306 stunnel
+$ kubectl run -it --rm -n $NAMESPACE --image=mattalord/port-fwdr --restart=Never redis-port-fwdr 6379 <cloud endpoint>:6379 stunnel
+$ kubectl port-forward -n $NAMESPACE pod/redis-port-fwdr 6379:6379
 ```
 
 Then you can use the local redis client to connect to the TLS'd redis service. For example:
 ```
-$ kubectl run -it --rm -n $NAMESPACE --image=mattalord/port-fwdr --restart=Never redis-port-fwdr 6379 <cloud endpoint>:6379 stunnel
-$ kubectl port-forward -n $NAMESPACE pod/redis-port-fwdr 6379:6379
+$ redis-cli
+127.0.0.1:6379> AUTH <auth token>
+OK
+127.0.0.1:6379> set mytest "hi"
+OK
+127.0.0.1:6379> get mytest
+"hi"
+127.0.0.1:6379> del mytest
+(integer) 1
 ```
